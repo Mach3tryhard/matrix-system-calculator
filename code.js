@@ -11,8 +11,8 @@ function Start()
             numrow.push(Number.parseInt(y));
         Abarat.push(numrow);
     }
-    if(Abarat.length+1!=Abarat[0].length)
-        document.getElementById("output").textContent="Matrix is wrong";
+    //if(Abarat.length+1!=Abarat[0].length)
+      //  document.getElementById("output").textContent="Matrix is wrong";
     for(var i=0;i<Abarat.length;i++)
     {
         A.push([]);
@@ -27,74 +27,28 @@ function Start()
     Afisare("Rangul A ="+Rang(A));
 }
 
+var sum=0;
+
 function Determinant(mat)
 {
-    var rez=0;
-    if(mat.length == 1)
-        rez=mat[0][0];
-    if(mat.length==2)
-    {
-        rez=mat[0][0]*mat[1][1]-mat[1][0]*mat[0][1];
-    }
-    if(mat.length==3)
-    {
-        for(var i=0;i<3;i++)
-        {
-            var j=i,k=0,s=1;
-            while(j<i+3)
-            {
-                s=s*mat[j%3][k%3];
-                j++;k++;
-            }
-            rez=rez+s;
-        }
-        for(var i=0;i<3;i++)
-        {
-            var j=i,k=2,s=1;
-            while(j<i+3)
-            {
-                s=s*mat[j%3][k%3];
-                j++;k--;
-            }
-            rez=rez-s;
-        }
-    }
-    if(mat.length==4)
-    {
-        for(var l=0;l<4;l++)
-        {
-            var inm,sum=0;
-            if(l%2==0)inm=1;
-            else inm=-1;
-            inm=inm*mat[0][l];
-            for(var i=1;i<4;i++)
-            {
-                var j=i,k=0,s=1;
-                while(j<i+3)
-                {
-                    if(k==l)
-                        k++;
-                    s=s*mat[j%4][k%4];
-                    j++;k++;
-                }
-                sum=sum+s;
-            }
-            for(var i=1;i<4;i++)
-            {
-                var j=i,k=3,s=1;
-                while(j<i+3)
-                {
-                    if(k==l)
-                        k--;
-                    s=s*mat[j%4][k%4];
-                    j++;k--;
-                }
-                sum=sum-s;
-            }
-            rez=rez+inm*sum;
-        }
-    }
-    return rez;
+    for(var	i=0;i<mat.lengh;i++)
+	{
+		let newmat=[];
+		for(var j=i;j<mat.lengh;j++)
+		{
+			newmat.push([]);
+			for(var l=0;l<mat.lengh;l++)
+			{
+				if(l!=i)
+					newmat[j].push(mat[j][l]);
+			}
+		}
+		if(i%2==1)
+			sum+=i*Determinant(newmat);
+		else
+			sum+=(-1)*i*Determinant(newmat);
+	}
+	return 0;
 }
 
 function Rang(mat)
